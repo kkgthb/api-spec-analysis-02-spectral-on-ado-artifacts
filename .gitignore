@@ -1,0 +1,16 @@
+.ignoreme
+
+# Some common things to ignore
+.vscode
+*.pem
+test-results
+
+# Ignore Terraform
+.terraform*
+terraform.tfstate
+terraform.tfstate.backup
+# Except include Terraform dependency version number lockfiles, because we are good supply chain security citizens and we know to do that know.
+!.terraform.lock.hcl
+
+# Ignore build artifacts
+dist
