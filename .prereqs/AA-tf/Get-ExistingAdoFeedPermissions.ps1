@@ -52,16 +52,15 @@ do {
 } while (-not [string]::IsNullOrWhiteSpace($continuationToken))
 
 $foundPermissions = @($permissions | Where-Object { $true })
-# $foundPermissions | ForEach-Object {
-#     ( `
-#         az devops invoke `
-#         --area 'ims' `
-#         --resource 'identities' `
-#         --http-method 'GET' `
-#         --api-version '7.1' `
-#         --organization $organizationUrl `
-#         --query-parameters "descriptors=`"$_.identityDescriptor`"" `
-#         --query 'value[0].{providerDisplayName:providerDisplayName}'
-#     )
-# }
-# $foundPermissions | ConvertTo-Json -Compress
+$foundPermissions | ForEach-Object {
+    ( `
+        az devops invoke `
+        --area 'ims' `
+        --resource 'identities' `
+        --http-method 'GET' `
+        --api-version '7.1' `
+        --organization $organizationUrl `
+        --query-parameters "descriptors=`"$($_.identityDescriptor)`"" `
+        --query 'value[0].{providerDisplayName:providerDisplayName}'
+    )
+}
